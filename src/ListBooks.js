@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 class ListBooks extends Component {
   static propTypes = {
+    shelfTitle: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
     onMoveBook: PropTypes.func.isRequired
   }
@@ -12,7 +13,7 @@ class ListBooks extends Component {
           <h2 className="bookshelf-title">{this.props.shelfTitle}</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
-              {this.props.books.map((book) => (
+              {this.props.books.filter((book) => book.bookShelf === this.props.shelfTitle).map((book) => (
                 <li key={book.id}>
                   <div className="book">
                     <div className="book-top">
