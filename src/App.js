@@ -22,10 +22,16 @@ class BooksApp extends React.Component {
   moveBook = (book, event) => {
     let movedBook = this.state.booksArray.filter( (b) => b.id === book.id)
     let targetShelf = event.target.value
-    movedBook[0].bookShelf = targetShelf
-    this.setState((state) => ({
-      booksArray: (state.booksArray.filter( (b) => b.id !== book.id )).concat( movedBook )
-    }))
+    if (targetShelf !== "none") {
+      movedBook[0].shelf = targetShelf
+      this.setState((state) => ({
+        booksArray: (state.booksArray.filter( (b) => b.id !== book.id )).concat( movedBook )
+      }))
+    } else {
+      this.setState((state) => ({
+        booksArray: (state.booksArray.filter( (b) => b.id !== book.id ))
+      }))
+    }
   }
 
   render() {
