@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import ListBooks from './ListBooks'
 import SearchBooks from './SearchBooks'
+import ShowShelves from './ShowShelves'
 
 class BooksApp extends React.Component {
   state = {
@@ -41,32 +42,11 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+
           <SearchBooks />
-        ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-                    <ListBooks
-                      shelf="currentlyReading"
-                      onMoveBook={this.moveBook}
-                      books={this.state.booksArray} />
-                    <ListBooks
-                      shelf="wantToRead"
-                      onMoveBook={this.moveBook}
-                      books={this.state.booksArray} />
-                    <ListBooks
-                      shelf="read"
-                      onMoveBook={this.moveBook}
-                      books={this.state.booksArray} />
-            </div>
-            <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div>
-          </div>
-        )}
+
+          <ShowShelves booksOnShelf={this.state.booksArray} onMoveFromShelf={this.moveBook}/>
+
       </div>
     )
   }
