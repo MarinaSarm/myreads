@@ -8,7 +8,6 @@ class ShowShelves extends Component {
     onMoveFromShelf: PropTypes.func.isRequired
   }
   render() {
-    console.log(this.props.booksOnShelf)
     return(
       <div className="list-books">
         <div className="list-books-title">

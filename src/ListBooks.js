@@ -8,7 +8,6 @@ class ListBooks extends Component {
     onMoveBook: PropTypes.func.isRequired
   }
   render() {
-    console.log(this.props.books)
     return(
         <div className="bookshelf">
           <h2 className="bookshelf-title">
@@ -24,7 +23,7 @@ class ListBooks extends Component {
                     <div className="book-top">
                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                       <div className="book-shelf-changer">
-                        <select onChange={(event) => this.props.onMoveBook(book, event)} value={this.shelf}>
+                        <select onChange={(event) => this.props.onMoveBook(book, event)} value={this.props.shelf}>
                           <option value="move" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
