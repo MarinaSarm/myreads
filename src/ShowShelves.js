@@ -17,7 +17,9 @@ class ShowShelves extends Component {
           {this.props.children}
         </div>
         <div className="open-search">
-          <a>Add a book</a>
+          <Link
+            to="/search"
+            >Add a book</Link>
         </div>
       </div>
     )
