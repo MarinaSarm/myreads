@@ -52,7 +52,12 @@ class BooksApp extends React.Component {
               books={this.state.booksArray} />
           </ShowShelves>
         )} />
-        <Route path="/search" component={SearchBooks} />
+        <Route path="/search" render={() => (
+            <SearchBooks
+            books={this.state.booksArray}
+            />
+          )}
+        />
       </div>
     )
   }
