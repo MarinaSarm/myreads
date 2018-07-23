@@ -8,6 +8,7 @@ class ListBooks extends Component {
     onMoveBook: PropTypes.func.isRequired
   }
   render() {
+    console.log(this.props.books)
     return(
         <div className="bookshelf">
           <h2 className="bookshelf-title">
