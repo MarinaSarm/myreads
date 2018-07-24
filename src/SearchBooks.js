@@ -11,18 +11,12 @@ class SearchBooks extends Component {
 
   updateQuery = (query) => {
     this.setState({ query: query })
-    // let showingBooks
     if (query) {
-      // const match = new RegExp(escapeRegExp(this.state.query), 'g', 'i', 'u')
       BooksAPI.search(query).then((booksSearch) => this.setState({booksSearch: booksSearch}))
-      // if (this.state.booksSearch.length > 0) {
-      //   this.setState({booksSearch: this.state.booksSearch.filter((book) => match.test(book.title))})
-      // }
     } else {
-      this.setState({booksSearch: []})
-    }
-  }
 
+    }this.setState({booksSearch: []})
+  }
 
   render() {
     return (
@@ -45,15 +39,25 @@ class SearchBooks extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
           {this.state.booksSearch.length > 0 &&
-          this.state.booksSearch.map((book) => (
-            <li key={book.id}>
-              <BookDisplay
-              shelf={book.shelf}
-              onMoveBookThis={this.props.onMoveBook}
-              books={this.props.books}
-              book={book}/>
-            </li>
-          ))}
+          this.state.booksSearch.map((book) => {
+            let shelfOfBook="none"
+            this.props.books.map((b) => {
+              if (b.id === book.id) {
+                shelfOfBook = b.shelf
+              }
+              return shelfOfBook
+            })
+            this.props.updateShelf(book, shelfOfBook)
+            return (
+              <li key={book.id}>
+                <BookDisplay
+                shelf={shelfOfBook}
+                onMoveBookThis={this.props.onMoveFromShelf}
+                book={book}
+                books={this.props.books}/>
+              </li>
+            )
+          })}
           {this.state.booksSearch.length === 0 && <div>No matches</div>}
           </ol>
         </div>

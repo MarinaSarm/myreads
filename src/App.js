@@ -19,22 +19,14 @@ class BooksApp extends React.Component {
     })
   }
   moveBook = (book, event) => {
-    const movedBook = this.state.booksArray.filter( (b) => b.id === book.id)
     const targetShelf = event.target.value
-    if (targetShelf !== "none") {
-      movedBook[0].shelf = targetShelf
-      this.setState((state) => ({
-        booksArray: (state.booksArray.filter( (b) => b.id !== book.id )).concat( movedBook )
-      }))
-    } else {
-      this.setState((state) => ({
-        booksArray: (state.booksArray.filter( (b) => b.id !== book.id ))
-      }))
-    }
     BooksAPI.update(book, targetShelf)
     BooksAPI.getAll().then((booksArray) => {
       this.setState({ booksArray })
     })
+  }
+  updateShelf =(book, shelf) => {
+    BooksAPI.update(book, shelf)
   }
 
   render() {
@@ -64,6 +56,8 @@ class BooksApp extends React.Component {
         <Route path="/search" render={() => (
             <SearchBooks
             books={this.state.booksArray}
+            onMoveFromShelf={this.moveBook}
+            updateShelf={this.updateShelf}
             />
           )}
         />
