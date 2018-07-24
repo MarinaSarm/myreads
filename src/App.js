@@ -31,6 +31,10 @@ class BooksApp extends React.Component {
         booksArray: (state.booksArray.filter( (b) => b.id !== book.id ))
       }))
     }
+    BooksAPI.update(book, targetShelf)
+    BooksAPI.getAll().then((booksArray) => {
+      this.setState({ booksArray })
+    })
   }
 
   render() {
