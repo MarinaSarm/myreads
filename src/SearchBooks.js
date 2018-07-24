@@ -1,26 +1,30 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
+import * as BooksAPI from './BooksAPI'
+import BookDisplay from './BookDisplay'
 
 class SearchBooks extends Component {
   state = {
-    query: ''
+    query: '',
+    booksSearch: []
   }
+
   updateQuery = (query) => {
-    this.setState({ query: query.trim() })
-  }
-  clearQuery = () => {
-    this.setState({ query: '' })
-  }
-  render() {
-    let showingBooks
-    if (this.state.query) {
-      const match = new RegExp(escapeRegExp(this.state.query), 'i')
-      showingBooks = this.props.books.filter((book) => match.test(book.title))
+    this.setState({ query: query })
+    // let showingBooks
+    if (query) {
+      // const match = new RegExp(escapeRegExp(this.state.query), 'g', 'i', 'u')
+      BooksAPI.search(query).then((booksSearch) => this.setState({booksSearch: booksSearch}))
+      // if (this.state.booksSearch.length > 0) {
+      //   this.setState({booksSearch: this.state.booksSearch.filter((book) => match.test(book.title))})
+      // }
     } else {
-      showingBooks = this.props.books
+      this.setState({booksSearch: []})
     }
+  }
+
+
+  render() {
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -40,11 +44,17 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {showingBooks.map((book) => (
-              <li key={book.id}>
-              {book.title}
-              </li>
-            ))}
+          {this.state.booksSearch.length > 0 &&
+          this.state.booksSearch.map((book) => (
+            <li key={book.id}>
+              <BookDisplay
+              shelf={book.shelf}
+              onMoveBookThis={this.props.onMoveBook}
+              books={this.props.books}
+              book={book}/>
+            </li>
+          ))}
+          {this.state.booksSearch.length === 0 && <div>No matches</div>}
           </ol>
         </div>
       </div>

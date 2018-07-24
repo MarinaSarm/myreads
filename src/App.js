@@ -41,15 +41,20 @@ class BooksApp extends React.Component {
             <ListBooks
               shelf="currentlyReading"
               onMoveBook={this.moveBook}
-              books={this.state.booksArray} />
+              books={this.state.booksArray}>
+            </ListBooks>
             <ListBooks
               shelf="wantToRead"
               onMoveBook={this.moveBook}
-              books={this.state.booksArray} />
+              books={this.state.booksArray}>
+
+            </ListBooks>
             <ListBooks
               shelf="read"
               onMoveBook={this.moveBook}
-              books={this.state.booksArray} />
+              books={this.state.booksArray}>
+
+            </ListBooks>
           </ShowShelves>
         )} />
         <Route path="/search" render={() => (
